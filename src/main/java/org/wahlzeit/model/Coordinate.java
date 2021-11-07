@@ -7,7 +7,13 @@ public class Coordinate {
 
     //Constructor
 
+    public Coordinate(double x, double y, double z){
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
 
+    //getter and setter
     public void setX(double x) {
         this.x = x;
     }
@@ -32,17 +38,15 @@ public class Coordinate {
         return z;
     }
 
-    public double[] getCoordinate() {
-        double[] coordinate = new double[3];
-        coordinate[0] = x;
-        coordinate[1] = y;
-        coordinate[2] = z;
-        return coordinate;
+    public double getDistance(Coordinate coordinate){
+        double dis_x = this.x - coordinate.x;
+        double dis_y = this.y - coordinate.y;
+        double dis_z = this.z - coordinate.z;
+        return Math.sqrt(dis_x * dis_x + dis_y * dis_y + dis_z * dis_z);
     }
 
-    public Coordinate(double x, double y, double z){
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public boolean isEqual(Coordinate coordinate){
+        return this.equals(coordinate);
     }
+
 }

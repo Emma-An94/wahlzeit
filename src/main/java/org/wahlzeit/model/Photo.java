@@ -16,7 +16,17 @@ import org.wahlzeit.utils.*;
  */
 public class Photo extends DataObject {
 
-	public Location location;
+	private Location location;
+
+	public Photo(Location location){
+		this();
+		this.location = location;
+	}
+
+	public Location getLocation(){
+		return this.location;
+	}
+
 	/**
 	 * 
 	 */
