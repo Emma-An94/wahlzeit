@@ -18,11 +18,6 @@ public class Photo extends DataObject {
 
 	private Location location;
 
-	public Photo(Location location){
-		this();
-		this.location = location;
-	}
-
 	public Location getLocation(){
 		return this.location;
 	}
@@ -106,8 +101,14 @@ public class Photo extends DataObject {
 	public Photo() {
 		id = PhotoId.getNextId();
 		incWriteCount();
+		this.location = new Location();
 	}
-	
+
+	public Photo(Location location){
+		id = PhotoId.getNextId();
+		incWriteCount();
+		this.location = location;
+	}
 	/**
 	 * 
 	 * @methodtype constructor

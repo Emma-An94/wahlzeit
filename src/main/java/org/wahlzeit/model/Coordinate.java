@@ -46,7 +46,11 @@ public class Coordinate {
     }
 
     public boolean isEqual(Coordinate coordinate){
-        return this.equals(coordinate);
+        return this.x == coordinate.x && this.y == coordinate.y && this.z == coordinate.z;
+    }
+
+    public boolean equals(Object coordinate){
+        return (this.getClass() == coordinate.getClass());
     }
 
 }
