@@ -17,11 +17,9 @@ public class CoordinateTest {
     @Test
     public void testIsEqual(){
         Coordinate coordinate1 = new Coordinate(0,0,0);
-        assertTrue(coordinate.equals(coordinate1));
         assertTrue(coordinate.isEqual(coordinate1));
 
         Coordinate coordinate2 = new Coordinate(2,2,2);
-        assertTrue(coordinate.equals(coordinate2));
         assertFalse(coordinate.isEqual(coordinate2));
     }
 }
