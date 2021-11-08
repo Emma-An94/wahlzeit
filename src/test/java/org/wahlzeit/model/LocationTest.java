@@ -9,6 +9,6 @@ public class LocationTest {
         Location location = new Location();
         Coordinate coordinate = location.getCoordinate();
         Coordinate coordinate1 = new Coordinate(0.0,0.0,0.0);
-        assertEquals(coordinate,coordinate1);
+        assertTrue(coordinate.isEqual(coordinate1));
     }
 }
