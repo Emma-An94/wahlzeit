@@ -29,7 +29,20 @@ CREATE TABLE photos (
 	status integer,
 	praise_sum integer,
 	no_votes integer,
-	creation_time bigint
+	creation_time bigint,
+	location_id integer REFERENCES location(location_id)
+);
+
+CREATE TABLE location (
+    ((coordinate_x double, coordinate_y double, coordinate_z double) REFERENCES coordinate(x, y, z)
+    photo_id integer,
+    location text,
+    id integer PRIMARY KEY
+);
+
+CREATE TABLE coordinate (
+    (x double, y double, z double) PRIMARY KEY,
+    location_id integer REFERENCES location(location_id)
 );
 
 CREATE TABLE tags (

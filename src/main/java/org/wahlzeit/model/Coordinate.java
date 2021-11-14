@@ -1,6 +1,12 @@
 package org.wahlzeit.model;
 
-public class Coordinate {
+import org.wahlzeit.services.DataObject;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Coordinate extends DataObject {
     private double x;
     private double y;
     private double z;
@@ -49,4 +55,27 @@ public class Coordinate {
         return this.x == coordinate.x && this.y == coordinate.y && this.z == coordinate.z;
     }
 
+    @Override
+    public String getIdAsString() {
+        return null;
+    }
+
+    @Override
+    public void readFrom(ResultSet rset) throws SQLException {
+        x = rset.getDouble("coordinate_x");
+        y = rset.getDouble("rdinate_y");
+        z = rset.getDouble("coordinate_z");
+    }
+
+    @Override
+    public void writeOn(ResultSet rset) throws SQLException {
+        rset.updateDouble("coordinate_x", this.x);
+        rset.updateDouble("coordinate_y", this.y);
+        rset.updateDouble("coordinate_z", this.z);
+    }
+
+    @Override
+    public void writeId(PreparedStatement stmt, int pos) throws SQLException {
+
+    }
 }
