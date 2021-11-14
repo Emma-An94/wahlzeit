@@ -77,5 +77,6 @@ public class Coordinate extends DataObject {
     @Override
     public void writeId(PreparedStatement stmt, int pos) throws SQLException{
 
+
     }
 }
