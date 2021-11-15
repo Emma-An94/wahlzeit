@@ -51,14 +51,14 @@ public class FlowerPhotoManager extends PhotoManager {
     /**
      *
      */
-    public static final Photo getFlowerPhoto(String id) {
+    public static final FlowerPhoto getFlowerPhoto(String id) {
         return getFlowerPhoto(PhotoId.getIdFromString(id));
     }
 
     /**
      *
      */
-    public static final Photo getFlowerPhoto(PhotoId id) {
+    public static final FlowerPhoto getFlowerPhoto(PhotoId id) {
         return instance.getPhotoFromId(id);
     }
 
