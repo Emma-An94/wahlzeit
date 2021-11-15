@@ -5,6 +5,7 @@ import org.wahlzeit.services.DataObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class Coordinate extends DataObject {
     private double x;
@@ -52,7 +53,19 @@ public class Coordinate extends DataObject {
     }
 
     public boolean isEqual(Coordinate coordinate){
-        return this.x == coordinate.x && this.y == coordinate.y && this.z == coordinate.z;
+        return getDistance(coordinate) <= 0.0001;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this) return true;
+        if (obj.getClass() != this.getClass()) return false;
+        return isEqual((Coordinate) obj);
+    }
+
+    @Override
+    public  int hashCode(){
+        return Objects.hash(x, y, z);
     }
 
     @Override
@@ -76,7 +89,5 @@ public class Coordinate extends DataObject {
 
     @Override
     public void writeId(PreparedStatement stmt, int pos) throws SQLException{
-
-
     }
 }
