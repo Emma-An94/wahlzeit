@@ -8,7 +8,7 @@ public class LocationTest {
     public void testLocationWithCoordinate(){
         Location location = new Location();
         Coordinate coordinate = location.getCoordinate();
-        Coordinate coordinate1 = new Coordinate(0.0,0.0,0.0);
+        Coordinate coordinate1 = new CartesianCoordinate(0.0,0.0,0.0);
         assertTrue(coordinate.isEqual(coordinate1));
     }
 }

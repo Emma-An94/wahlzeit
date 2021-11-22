@@ -11,10 +11,10 @@ public class Location extends DataObject{
     private int location_id = 0; // default id
 
     public Location(){
-        this.coordinate = new Coordinate(0.0,0.0,0.0);// set default coordinate
+        this.coordinate = new CartesianCoordinate(0.0,0.0,0.0);// set default coordinate
     }
     public Location(double x, double y, double z, int location_id){
-        this.coordinate = new Coordinate(x, y, z); //Every location has exact one coordinate.
+        this.coordinate = new CartesianCoordinate(x, y, z); //Every location has exact one coordinate.
         this.location_id = location_id;
     }
 
@@ -33,12 +33,12 @@ public class Location extends DataObject{
 
     @Override
     public void readFrom(ResultSet rset) throws SQLException {
-        this.coordinate.readFrom(rset);
+        this.coordinate.asCartesianCoordinate().readFrom(rset);
     }
 
     @Override
     public void writeOn(ResultSet rset) throws SQLException {
-        this.coordinate.writeOn(rset);
+        this.coordinate.asCartesianCoordinate().writeOn(rset);
     }
 
     @Override

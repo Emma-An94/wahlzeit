@@ -1,0 +1,119 @@
+package org.wahlzeit.model;
+
+import org.wahlzeit.services.DataObject;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Objects;
+
+public class CartesianCoordinate extends DataObject implements Coordinate{
+    private double x;
+    private double y;
+    private double z;
+
+    //Constructor
+
+    public CartesianCoordinate(double x, double y, double z){
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    //getter and setter
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
+
+    @Override
+    public CartesianCoordinate asCartesianCoordinate() {
+        return this;
+    }
+
+    @Override
+    public double getCartesianDistance(Coordinate coordinate) {
+        CartesianCoordinate cartesiancoordinate = coordinate.asCartesianCoordinate();
+        double dis_x = this.x - cartesiancoordinate.x;
+        double dis_y = this.y - cartesiancoordinate.y;
+        double dis_z = this.z - cartesiancoordinate.z;
+        return Math.sqrt(dis_x * dis_x + dis_y * dis_y + dis_z * dis_z);
+    }
+
+    @Override
+    public SphericCoordinate asSphericCoordinate() {
+        double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+        double phi = Math.acos(this.z / radius);
+        double theta = Math.atan(this.y / this.x);
+        return new SphericCoordinate(phi, theta,radius);
+    }
+
+    @Override
+    public double getCentralAngel(Coordinate coordinate) {
+        SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
+        return sphericCoordinate.getCentralAngel(this);
+    }
+
+    @Override
+    public boolean isEqual(Coordinate coordinate) {
+        CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
+        return getCartesianDistance(cartesianCoordinate) <= 0.001;
+    }
+
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this) return true;
+        if (obj.getClass() != this.getClass()) return false;
+        return isEqual((CartesianCoordinate) obj);
+    }
+
+    @Override
+    public  int hashCode(){
+        return Objects.hash(x, y, z);
+    }
+
+    @Override
+    public String getIdAsString() {
+        return null;
+    }
+
+    @Override
+    public void readFrom(ResultSet rset) throws SQLException {
+        x = rset.getDouble("coordinate_x");
+        y = rset.getDouble("rdinate_y");
+        z = rset.getDouble("coordinate_z");
+    }
+
+    @Override
+    public void writeOn(ResultSet rset) throws SQLException {
+        rset.updateDouble("coordinate_x", this.x);
+        rset.updateDouble("coordinate_y", this.y);
+        rset.updateDouble("coordinate_z", this.z);
+    }
+
+    @Override
+    public void writeId(PreparedStatement stmt, int pos) throws SQLException{
+    }
+
+}
