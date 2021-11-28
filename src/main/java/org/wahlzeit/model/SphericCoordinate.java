@@ -1,8 +1,11 @@
 package org.wahlzeit.model;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
-public class SphericCoordinate implements Coordinate{
+public class SphericCoordinate extends AbstractCoordinate{
 
     private double phi;
     private double theta;
@@ -70,21 +73,31 @@ public class SphericCoordinate implements Coordinate{
     }
 
     @Override
-    public boolean isEqual(Coordinate coordinate) {
-        SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
-        return getCentralAngel(sphericCoordinate) <= 0.001;
-    }
-
-    @Override
-    public boolean equals(Object obj){
-        if (obj == this) return true;
-        if (obj.getClass() != this.getClass()) return false;
-        return isEqual((SphericCoordinate) obj);
-    }
-
-    @Override
     public  int hashCode() {
         return Objects.hash(phi, theta, radius);
+    }
+
+    @Override
+    public void readFrom(ResultSet rset) throws SQLException {
+        double x = rset.getDouble("coordinate_x");
+        double y = rset.getDouble("rdinate_y");
+        double z = rset.getDouble("coordinate_z");
+        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, y, z);
+        SphericCoordinate sphericCoordinate = cartesianCoordinate.asSphericCoordinate();
+        this.theta = sphericCoordinate.getTheta();
+        this.phi = sphericCoordinate.getPhi();
+        this.radius = sphericCoordinate.getRadius();
+    }
+
+    @Override
+    public void writeOn(ResultSet rset) throws SQLException {
+        CartesianCoordinate cartesianCoordinate = this.asCartesianCoordinate();
+        double x = cartesianCoordinate.getX();
+        double y = cartesianCoordinate.getY();
+        double z = cartesianCoordinate.getZ();
+        rset.updateDouble("coordinate_x", x);
+        rset.updateDouble("coordinate_y", y);
+        rset.updateDouble("coordinate_z", z);
     }
 
 }

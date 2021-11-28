@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class CartesianCoordinate extends DataObject implements Coordinate{
+public class CartesianCoordinate extends AbstractCoordinate{
     private double x;
     private double y;
     private double z;
@@ -63,6 +63,9 @@ public class CartesianCoordinate extends DataObject implements Coordinate{
     @Override
     public SphericCoordinate asSphericCoordinate() {
         double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+        if (radius <= 0.001){
+            return new SphericCoordinate(0, 0, 0);
+        }
         double phi = Math.acos(this.z / radius);
         double theta = Math.atan(this.y / this.x);
         return new SphericCoordinate(phi, theta,radius);
@@ -75,27 +78,8 @@ public class CartesianCoordinate extends DataObject implements Coordinate{
     }
 
     @Override
-    public boolean isEqual(Coordinate coordinate) {
-        CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
-        return getCartesianDistance(cartesianCoordinate) <= 0.001;
-    }
-
-
-    @Override
-    public boolean equals(Object obj){
-        if (obj == this) return true;
-        if (obj.getClass() != this.getClass()) return false;
-        return isEqual((CartesianCoordinate) obj);
-    }
-
-    @Override
     public  int hashCode(){
         return Objects.hash(x, y, z);
-    }
-
-    @Override
-    public String getIdAsString() {
-        return null;
     }
 
     @Override
@@ -110,10 +94,6 @@ public class CartesianCoordinate extends DataObject implements Coordinate{
         rset.updateDouble("coordinate_x", this.x);
         rset.updateDouble("coordinate_y", this.y);
         rset.updateDouble("coordinate_z", this.z);
-    }
-
-    @Override
-    public void writeId(PreparedStatement stmt, int pos) throws SQLException{
     }
 
 }
