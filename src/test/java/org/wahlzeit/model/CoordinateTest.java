@@ -1,6 +1,7 @@
 package org.wahlzeit.model;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class CoordinateTest {
@@ -17,12 +18,12 @@ public class CoordinateTest {
     }
 
     @Test
-    public void testIsEqual(){
-        Coordinate coordinate1 = new CartesianCoordinate(0,0,0);
+    public void testIsEqual() {
+        Coordinate coordinate1 = new CartesianCoordinate(0, 0, 0);
         assertTrue(cartesianCoordinate1.isEqual(coordinate1));
         assertTrue(cartesianCoordinate1.equals(coordinate1));
 
-        Coordinate coordinate2 = new CartesianCoordinate(2,2,2);
+        Coordinate coordinate2 = new CartesianCoordinate(2, 2, 2);
         assertFalse(cartesianCoordinate1.isEqual(coordinate2));
         assertFalse(coordinate2.equals(2));
 
@@ -30,5 +31,21 @@ public class CoordinateTest {
         assertTrue(sphericCoordinate.equals(sphericCoordinate));
         assertFalse(sphericCoordinate.equals(sphericCoordinate1));
         assertTrue(sphericCoordinate.getClass() == coordinate1.asSphericCoordinate().getClass());
+    }
+
+    @Test
+    public void testDesignByContract(){
+        try{
+            Coordinate coordinate = new SphericCoordinate(-1, -1, -1);
+        }catch(AssertionError e){
+
+        }
+
+        try{
+            Coordinate obj = new CartesianCoordinate(0, 0, 0);
+            cartesianCoordinate.getCartesianDistance(obj);
+        }catch (AssertionError e){
+
+        }
     }
 }

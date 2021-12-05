@@ -1,8 +1,5 @@
 package org.wahlzeit.model;
 
-import org.wahlzeit.services.DataObject;
-
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -53,6 +50,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
+        assert coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate: "the Coordinate must be cartesian or spherical";
         CartesianCoordinate cartesiancoordinate = coordinate.asCartesianCoordinate();
         double dis_x = this.x - cartesiancoordinate.x;
         double dis_y = this.y - cartesiancoordinate.y;
@@ -73,6 +71,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 
     @Override
     public double getCentralAngel(Coordinate coordinate) {
+        assert coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate: "the Coordinate must be cartesian or spherical";
         SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
         return sphericCoordinate.getCentralAngel(this);
     }
