@@ -10,22 +10,20 @@ public class SphericCoordinate extends AbstractCoordinate{
     private double theta;
     private double radius;
 
-    public void assertClassInvariants(double phi, double theta, double radius){
-        assert radius >= 0: "radius should >= 0";
-        assert theta >= 0: "theta should >= 0";
-        assert theta <= Math.PI: "theta should <= Math.PI";
-        assert phi >= 0: "phi should >= 0";
-        assert phi <= 2*Math.PI: "phi should <= 2*Math.PI";
+    public void assertClassInvariants(){
+        assert this.radius >= 0: "radius should >= 0";
+        assert this.theta >= 0: "theta should >= 0";
+        assert this.theta <= Math.PI: "theta should <= Math.PI";
+        assert this.phi >= 0: "phi should >= 0";
+        assert this.phi <= 2*Math.PI: "phi should <= 2*Math.PI";
     }
 
     // Constructor
     public SphericCoordinate(double phi, double theta, double radius){
-        // Contracts
-        assertClassInvariants(phi, theta, radius);
-
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
+        assertClassInvariants();
     }
 
     // getter
@@ -43,24 +41,27 @@ public class SphericCoordinate extends AbstractCoordinate{
 
     // setter
     public void setPhi(double phi){
-        assertClassInvariants(phi, this.theta, this.radius);
+        assertClassInvariants();
         this.phi = phi;
+        assertClassInvariants();
     }
 
     public void setTheta(double theta){
-        assertClassInvariants(this.phi, theta, this.radius);
+        assertClassInvariants();
         this.theta = theta;
+        assertClassInvariants();
     }
 
     public void setRadius(double radius){
-        assertClassInvariants(this.phi, this.theta, radius);
+        assertClassInvariants();
         this.radius = radius;
+        assertClassInvariants();
     }
 
 
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
-        assertClassInvariants(this.phi, this.theta, this.radius);
+        assertClassInvariants();
         double x = this.radius * Math.sin(this.theta) * Math.cos(this.phi);
         double y = this.radius * Math.sin(this.theta) * Math.sin(this.phi);
         double z = this.radius * Math.cos(this.theta);
