@@ -105,19 +105,31 @@ public class Photo extends DataObject {
 		this.location = new Location();
 	}
 
+	/**
+	 *
+	 * @methodtype constructor
+	 */
 	public Photo(Location location){
+		if (location == null){
+			throw new IllegalArgumentException("Object Location should not be null");
+		}
 		id = PhotoId.getNextId();
 		incWriteCount();
 		this.location = location;
 	}
+
 	/**
 	 * 
 	 * @methodtype constructor
 	 */
 	public Photo(PhotoId myId) {
+		if (myId == null){
+			throw new IllegalArgumentException("Object PhotoID should not be null");
+		}
 		id = myId;
 		
 		incWriteCount();
+		this.location = new Location();
 	}
 	
 	/**
@@ -125,7 +137,11 @@ public class Photo extends DataObject {
 	 * @methodtype constructor
 	 */
 	public Photo(ResultSet rset) throws SQLException {
+		if (rset == null){
+			throw new IllegalArgumentException("Object ResultSet should not be null");
+		}
 		readFrom(rset);
+		this.location = new Location();
 	}
 
 	/**

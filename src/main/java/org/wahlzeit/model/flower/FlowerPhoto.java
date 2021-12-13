@@ -105,19 +105,31 @@ public class FlowerPhoto extends Photo {
         this.location = new Location();
     }
 
+    /**
+     *
+     * @methodtype constructor
+     */
     public FlowerPhoto(Location location){
+        if (location == null){
+            throw new IllegalArgumentException("Object Location should not be null");
+        }
         id = PhotoId.getNextId();
         incWriteCount();
         this.location = location;
     }
+
     /**
      *
      * @methodtype constructor
      */
     public FlowerPhoto(PhotoId myId) {
+        if (myId == null){
+            throw new IllegalArgumentException("Object PhotoId should not be null");
+        }
         id = myId;
 
         incWriteCount();
+        this.location = new Location();
     }
 
     /**
@@ -125,7 +137,11 @@ public class FlowerPhoto extends Photo {
      * @methodtype constructor
      */
     public FlowerPhoto(ResultSet rset) throws SQLException {
+        if (location == null){
+            throw new IllegalArgumentException("Object ResultSet should not be null");
+        }
         readFrom(rset);
+        this.location = new Location();
     }
 
     /**

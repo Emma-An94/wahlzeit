@@ -50,12 +50,24 @@ public class CartesianCoordinate extends AbstractCoordinate{
 
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
-        assert coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate: "the Coordinate must be cartesian or spherical";
+        // precondition
+        if (coordinate == null){
+            throw new IllegalArgumentException("Object Coordinate should not be null");
+        }
+        if (false == (coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate)){
+            throw new IllegalArgumentException("the Coordinate must be cartesian or spherical");
+        }
+
         CartesianCoordinate cartesiancoordinate = coordinate.asCartesianCoordinate();
         double dis_x = this.x - cartesiancoordinate.x;
         double dis_y = this.y - cartesiancoordinate.y;
         double dis_z = this.z - cartesiancoordinate.z;
-        return Math.sqrt(dis_x * dis_x + dis_y * dis_y + dis_z * dis_z);
+        double result = Math.sqrt(dis_x * dis_x + dis_y * dis_y + dis_z * dis_z);
+        // post condition
+        if (result < 0){
+            throw new IllegalStateException("Calculation wrong, CartesianDistance must be >= 0");
+        }
+        return result;
     }
 
     @Override
@@ -71,7 +83,14 @@ public class CartesianCoordinate extends AbstractCoordinate{
 
     @Override
     public double getCentralAngel(Coordinate coordinate) {
-        assert coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate: "the Coordinate must be cartesian or spherical";
+        // preconditon
+        if (coordinate == null){
+            throw new IllegalArgumentException("Object Coordinate should not be null");
+        }
+        if (false == (coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate)){
+            throw new IllegalArgumentException("the Coordinate must be cartesian or spherical");
+        }
+
         SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
         return sphericCoordinate.getCentralAngel(this);
     }

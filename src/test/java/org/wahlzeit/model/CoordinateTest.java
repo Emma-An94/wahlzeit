@@ -37,14 +37,34 @@ public class CoordinateTest {
     public void testDesignByContract(){
         try{
             Coordinate coordinate = new SphericCoordinate(-1, -1, -1);
-        }catch(AssertionError e){
+        }catch(IllegalArgumentException e){
 
         }
 
         try{
             Coordinate obj = new CartesianCoordinate(0, 0, 0);
             cartesianCoordinate.getCartesianDistance(obj);
-        }catch (AssertionError e){
+        }catch (IllegalArgumentException e){
+
+        }
+    }
+
+    @Test
+    public void testIllegalArgument(){
+        Coordinate coordinate_null = null;
+        try{
+            cartesianCoordinate.isEqual(coordinate_null);
+        }catch (IllegalArgumentException e){
+
+        }
+        try{
+            double distance = sphericCoordinate1.getCartesianDistance(coordinate_null);
+        }catch (IllegalArgumentException e){
+
+        }
+        try {
+            double angle = sphericCoordinate.getCentralAngel(coordinate_null);
+        }catch (IllegalArgumentException e){
 
         }
     }

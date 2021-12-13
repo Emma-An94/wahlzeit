@@ -12,7 +12,14 @@ abstract  class AbstractCoordinate extends DataObject implements Coordinate{
     public abstract double getCartesianDistance(Coordinate coordinate);
 
     public boolean isEqual(Coordinate coordinate) {
-        assert coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate: "the Coordinate must be cartesian or spherical";
+        // precondition
+        if (coordinate == null){
+            throw new IllegalArgumentException("Object Coordinate should not be null");
+        }
+        if (false == (coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate)){
+            throw new IllegalArgumentException("the Coordinate must be cartesian or spherical");
+        }
+
         CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
         return asCartesianCoordinate().getCartesianDistance(cartesianCoordinate) <= 0.001;
     }

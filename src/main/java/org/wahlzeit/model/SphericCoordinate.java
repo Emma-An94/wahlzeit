@@ -10,12 +10,22 @@ public class SphericCoordinate extends AbstractCoordinate{
     private double theta;
     private double radius;
 
-    public void assertClassInvariants(){
-        assert this.radius >= 0: "radius should >= 0";
-        assert this.theta >= 0: "theta should >= 0";
-        assert this.theta <= Math.PI: "theta should <= Math.PI";
-        assert this.phi >= 0: "phi should >= 0";
-        assert this.phi <= 2*Math.PI: "phi should <= 2*Math.PI";
+    public void assertClassInvariants() throws IllegalArgumentException{
+        if (this.radius < 0){
+            throw new IllegalArgumentException("radius should >= 0");
+        }
+        if (this.theta < 0){
+            throw new IllegalArgumentException("theta should >= 0");
+        }
+        if (this.theta > Math.PI){
+            throw new IllegalArgumentException("theta should <= Math.PI");
+        }
+        if (this.phi < 0){
+            throw new IllegalArgumentException("phi should >= 0");
+        }
+        if (this.phi > 2*Math.PI){
+            throw new IllegalArgumentException("phi should <= 2*Math.PI");
+        }
     }
 
     // Constructor
@@ -23,6 +33,7 @@ public class SphericCoordinate extends AbstractCoordinate{
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
+        // post condition
         assertClassInvariants();
     }
 
@@ -41,27 +52,38 @@ public class SphericCoordinate extends AbstractCoordinate{
 
     // setter
     public void setPhi(double phi){
+        // precondition
         assertClassInvariants();
+
         this.phi = phi;
+        // post condition
         assertClassInvariants();
     }
 
     public void setTheta(double theta){
+        // precondition
         assertClassInvariants();
+
         this.theta = theta;
+        // post condition
         assertClassInvariants();
     }
 
     public void setRadius(double radius){
+        // precondition
         assertClassInvariants();
+
         this.radius = radius;
+        // post condition
         assertClassInvariants();
     }
 
 
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
+        // precondition
         assertClassInvariants();
+
         double x = this.radius * Math.sin(this.theta) * Math.cos(this.phi);
         double y = this.radius * Math.sin(this.theta) * Math.sin(this.phi);
         double z = this.radius * Math.cos(this.theta);
@@ -70,7 +92,14 @@ public class SphericCoordinate extends AbstractCoordinate{
 
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
-        assert coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate: "the Coordinate must be cartesian or spherical";
+        // precondition
+        if (coordinate == null){
+            throw new IllegalArgumentException("Object Coordinate should not be null");
+        }
+        if (false == (coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate)){
+            throw new IllegalArgumentException("the Coordinate must be cartesian or spherical");
+        }
+
         CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
         return cartesianCoordinate.getCartesianDistance(this);
     }
@@ -82,7 +111,13 @@ public class SphericCoordinate extends AbstractCoordinate{
 
     @Override
     public double getCentralAngel(Coordinate coordinate) {
-        assert coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate: "the Coordinate must be cartesian or spherical";
+        // precondtion
+        if (coordinate == null){
+            throw new IllegalArgumentException("Object Coordinate should not be null");
+        }
+        if (false == (coordinate instanceof SphericCoordinate || coordinate instanceof CartesianCoordinate)){
+            throw new IllegalArgumentException("the Coordinate must be cartesian or spherical");
+        }
         SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
         double delta_phi = Math.abs(sphericCoordinate.phi - this.phi);
         double delta_theta = Math.abs(sphericCoordinate.theta - this.theta);
