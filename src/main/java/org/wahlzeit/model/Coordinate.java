@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import java.util.HashSet;
+
 public interface Coordinate {
 
     CartesianCoordinate asCartesianCoordinate();

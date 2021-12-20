@@ -6,9 +6,9 @@ import java.util.Objects;
 
 public class SphericCoordinate extends AbstractCoordinate{
 
-    private double phi;
-    private double theta;
-    private double radius;
+    private final double phi;
+    private final double theta;
+    private final double radius;
 
     public void assertClassInvariants() throws IllegalArgumentException{
         if (this.radius < 0){
@@ -35,6 +35,7 @@ public class SphericCoordinate extends AbstractCoordinate{
         this.radius = radius;
         // post condition
         assertClassInvariants();
+        asCartesianCoordinate();
     }
 
     // getter
@@ -51,31 +52,34 @@ public class SphericCoordinate extends AbstractCoordinate{
     }
 
     // setter
-    public void setPhi(double phi){
-        // precondition
-        assertClassInvariants();
+    public SphericCoordinate setPhi(double phi){
 
-        this.phi = phi;
+        SphericCoordinate s = new SphericCoordinate(phi, this.theta, this.radius);
+
         // post condition
         assertClassInvariants();
+
+        return s;
     }
 
-    public void setTheta(double theta){
-        // precondition
-        assertClassInvariants();
+    public SphericCoordinate setTheta(double theta){
 
-        this.theta = theta;
+        SphericCoordinate s = new SphericCoordinate(this.phi, theta, this.radius);
+
         // post condition
         assertClassInvariants();
+
+        return s;
     }
 
-    public void setRadius(double radius){
-        // precondition
-        assertClassInvariants();
+    public SphericCoordinate setRadius(double radius){
 
-        this.radius = radius;
+        SphericCoordinate s = new SphericCoordinate(this.phi, this.theta, radius);
+
         // post condition
         assertClassInvariants();
+
+        return s;
     }
 
 
@@ -127,29 +131,6 @@ public class SphericCoordinate extends AbstractCoordinate{
     @Override
     public  int hashCode() {
         return Objects.hash(phi, theta, radius);
-    }
-
-    @Override
-    public void readFrom(ResultSet rset) throws SQLException {
-        double x = rset.getDouble("coordinate_x");
-        double y = rset.getDouble("rdinate_y");
-        double z = rset.getDouble("coordinate_z");
-        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, y, z);
-        SphericCoordinate sphericCoordinate = cartesianCoordinate.asSphericCoordinate();
-        this.theta = sphericCoordinate.getTheta();
-        this.phi = sphericCoordinate.getPhi();
-        this.radius = sphericCoordinate.getRadius();
-    }
-
-    @Override
-    public void writeOn(ResultSet rset) throws SQLException {
-        CartesianCoordinate cartesianCoordinate = this.asCartesianCoordinate();
-        double x = cartesianCoordinate.getX();
-        double y = cartesianCoordinate.getY();
-        double z = cartesianCoordinate.getZ();
-        rset.updateDouble("coordinate_x", x);
-        rset.updateDouble("coordinate_y", y);
-        rset.updateDouble("coordinate_z", z);
     }
 
 }

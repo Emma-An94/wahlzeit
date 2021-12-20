@@ -2,6 +2,8 @@ package org.wahlzeit.model;
 
 import org.junit.Test;
 
+import java.util.HashSet;
+
 import static org.junit.Assert.*;
 
 public class CoordinateTest {
@@ -67,5 +69,26 @@ public class CoordinateTest {
         }catch (IllegalArgumentException e){
 
         }
+    }
+
+    @Test
+    public void testValueObject(){
+        HashSet<Coordinate> co1 = new HashSet<Coordinate>();
+        CartesianCoordinate c1 = new CartesianCoordinate(1,1,1);
+        CartesianCoordinate c2 = new CartesianCoordinate(1,1,1);
+        CartesianCoordinate c3 = new CartesianCoordinate(1,1,2);
+        SphericCoordinate s1 = new SphericCoordinate(1,1,1);
+        SphericCoordinate s2 = new SphericCoordinate(1,1,1);
+        SphericCoordinate s3 = new SphericCoordinate(1,1,2);
+
+        co1.add(c1);
+        co1.add(c2);
+        co1.add(c3);
+        co1.add(s1);
+        co1.add(s2);
+        co1.add(s3);
+
+        assertEquals(co1.size(), 4);
+
     }
 }

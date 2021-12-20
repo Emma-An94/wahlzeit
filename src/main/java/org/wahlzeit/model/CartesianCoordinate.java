@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class CartesianCoordinate extends AbstractCoordinate{
-    private double x;
-    private double y;
-    private double z;
+    private final double x;
+    private final double y;
+    private final double z;
 
     //Constructor
 
@@ -18,24 +18,24 @@ public class CartesianCoordinate extends AbstractCoordinate{
     }
 
     //getter and setter
-    public void setX(double x) {
-        this.x = x;
+    public CartesianCoordinate setX(double x) {
+        return new CartesianCoordinate(x, this.y, this.z);
     }
 
     public double getX() {
         return x;
     }
 
-    public void setY(double y) {
-        this.y = y;
+    public CartesianCoordinate setY(double y) {
+        return new CartesianCoordinate(this.x, y, this.z);
     }
 
     public double getY() {
         return y;
     }
 
-    public void setZ(double z) {
-        this.z = z;
+    public CartesianCoordinate setZ(double z) {
+        return new CartesianCoordinate(this.x, this.y, z);
     }
 
     public double getZ() {
@@ -98,20 +98,6 @@ public class CartesianCoordinate extends AbstractCoordinate{
     @Override
     public  int hashCode(){
         return Objects.hash(x, y, z);
-    }
-
-    @Override
-    public void readFrom(ResultSet rset) throws SQLException {
-        x = rset.getDouble("coordinate_x");
-        y = rset.getDouble("rdinate_y");
-        z = rset.getDouble("coordinate_z");
-    }
-
-    @Override
-    public void writeOn(ResultSet rset) throws SQLException {
-        rset.updateDouble("coordinate_x", this.x);
-        rset.updateDouble("coordinate_y", this.y);
-        rset.updateDouble("coordinate_z", this.z);
     }
 
 }
