@@ -28,7 +28,7 @@ abstract  class AbstractCoordinate extends DataObject implements Coordinate{
 
     public boolean equals(Object obj){
         if (obj == this) return true;
-
+        if ((obj instanceof CartesianCoordinate || obj instanceof SphericCoordinate) == false) return false;
         return isEqual((Coordinate) obj);
     }
 
