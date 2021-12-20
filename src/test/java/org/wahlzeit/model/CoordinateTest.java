@@ -80,6 +80,8 @@ public class CoordinateTest {
         SphericCoordinate s1 = new SphericCoordinate(1,1,1);
         SphericCoordinate s2 = new SphericCoordinate(1,1,1);
         SphericCoordinate s3 = new SphericCoordinate(1,1,2);
+        CartesianCoordinate c4 = new CartesianCoordinate(0,0,0);
+        SphericCoordinate s4 = new SphericCoordinate(0,0,0);
 
         co1.add(c1);
         co1.add(c2);
@@ -89,6 +91,11 @@ public class CoordinateTest {
         co1.add(s3);
 
         assertEquals(co1.size(), 4);
+
+        co1.add(c4);
+        co1.add(s4);
+
+        assertEquals(co1.size(), 5);
 
     }
 }

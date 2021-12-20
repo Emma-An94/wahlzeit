@@ -28,7 +28,7 @@ abstract  class AbstractCoordinate extends DataObject implements Coordinate{
 
     public boolean equals(Object obj){
         if (obj == this) return true;
-        if (obj.getClass() != this.getClass()) return false;
+
         return isEqual((Coordinate) obj);
     }
 
@@ -41,11 +41,7 @@ abstract  class AbstractCoordinate extends DataObject implements Coordinate{
 
     @Override
     public void readFrom(ResultSet rset) throws SQLException {
-        double x = rset.getDouble("coordinate_x");
-        double y = rset.getDouble("rdinate_y");
-        double z = rset.getDouble("coordinate_z");
-        // simply try to add the read result into hashset
-        new CartesianCoordinate(x, y, z);
+        // do nothing, as the variables are unchangeable
     }
 
     @Override
