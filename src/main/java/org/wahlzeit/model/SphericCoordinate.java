@@ -4,6 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
+
+@PatternInstance(
+    patternName = "SingleTon Pattern",
+    participants = {
+        "Class", "ConcreteInstance"
+    }
+)
 public class SphericCoordinate extends AbstractCoordinate{
 
     private final double phi;

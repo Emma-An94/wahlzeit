@@ -2,6 +2,13 @@ package org.wahlzeit.model;
 
 import java.util.HashSet;
 
+@PatternInstance(
+        patternName = "Proxy Pattern",
+        participants = {
+                "Placeholder", "ConcreteObject"
+        }
+)
+
 public interface Coordinate {
 
     CartesianCoordinate asCartesianCoordinate();

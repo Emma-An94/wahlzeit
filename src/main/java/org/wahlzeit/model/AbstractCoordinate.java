@@ -7,6 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 
+@PatternInstance(
+        patternName = "Adapter Pattern",
+        participants = {
+                "Adapter", "ConcreteProduct"
+        }
+)
+
 abstract  class AbstractCoordinate extends DataObject implements Coordinate{
 
     public abstract CartesianCoordinate asCartesianCoordinate();

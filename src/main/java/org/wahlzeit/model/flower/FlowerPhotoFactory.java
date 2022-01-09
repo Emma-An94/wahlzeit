@@ -6,6 +6,13 @@ import org.wahlzeit.services.SysLog;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@PatternInstance(
+        patternName = "Abstract Factory Pattern",
+        participants = {
+                "AbstractFactory", "ConcreteFactory"
+        }
+)
+
 public class FlowerPhotoFactory extends PhotoFactory {
     /**
      * Hidden singleton instance; needs to be initialized from the outside.
