@@ -99,6 +99,8 @@ public class FlowerPhoto extends Photo {
     /**
      *
      */
+    private Flower flower = null;
+
     public FlowerPhoto() {
         id = PhotoId.getNextId();
         incWriteCount();
@@ -137,11 +139,25 @@ public class FlowerPhoto extends Photo {
      * @methodtype constructor
      */
     public FlowerPhoto(ResultSet rset) throws SQLException {
-        if (location == null){
+        if (rset == null){
             throw new IllegalArgumentException("Object ResultSet should not be null");
         }
         readFrom(rset);
         this.location = new Location();
+    }
+
+    /**
+     *
+     * @methodtype constructor
+     */
+    public FlowerPhoto(Flower flower){
+        if (flower == null){
+            throw new IllegalArgumentException("Object Flower should not be null");
+        }
+        id = PhotoId.getNextId();
+        incWriteCount();
+        this.location = new Location();
+        this.flower = flower;
     }
 
     /**
