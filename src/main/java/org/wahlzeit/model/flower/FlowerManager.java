@@ -14,10 +14,6 @@ public class FlowerManager {
     protected Map<FlowerType, Flower> flowers = new HashMap<FlowerType, Flower>();
     public Map<String, FlowerType> flowertypes = new HashMap<String, FlowerType>();
 
-    public FlowerManager(){
-
-    }
-
     private void assertIsValidFlowerTypeName(String typeName) throws IllegalArgumentException{
         if (typeName == null || typeName == "") {
             throw new IllegalArgumentException("FlowerType should not be empty.");
