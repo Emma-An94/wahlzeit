@@ -16,6 +16,13 @@ import org.wahlzeit.utils.*;
  */
 public class Photo extends DataObject {
 
+	/*
+	PhotoManager#createPhoto(File file) => (id = PhotoId.getNextId())
+	PhotoUtil#createPhoto(file, id) =>
+	PhotoFactory#getInstance() => createPhoto(id)
+	Finally, the object ist created in PhotoFactory using command "new Photo(id)" which calls the constructor in this class
+	 */
+
 	private Location location;
 	private int location_id;
 
